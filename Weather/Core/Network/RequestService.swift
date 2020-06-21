@@ -11,9 +11,6 @@ import Alamofire
 
 class RequestService {
     
-    //MARK: - Properties
-    let session = Alamofire.Session()
-    
     //MARK: - Constants
     let baseURL = (Bundle.main.object(forInfoDictionaryKey: String.Bundle.baseUrl) as? String) ?? String.empty
     

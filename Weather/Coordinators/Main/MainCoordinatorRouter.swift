@@ -28,9 +28,15 @@ class MainCoordinatorRouter {
 
 extension MainCoordinatorRouter: MainCoordinatorRouterInterface {
     
-    func openMainScreenWith(output: MainScreenModuleOutput) {
-        let mainScreen = MainScreenAssebly.buildWith(output: output)
-        self.navigationController?.pushViewController(mainScreen, animated: true)
+    func openMainScreenWith(output: MainScreenModuleOutput) -> MainScreenModuleInput? {
+        
+        let mainModule: (view: UIViewController?, input: MainScreenModuleInput?) = MainScreenAssebly.buildWith(output: output)
+        
+        if let mainScreen = mainModule.view {
+            self.navigationController?.pushViewController(mainScreen, animated: true)
+        }
+        
+        return mainModule.input
     }
     
 }

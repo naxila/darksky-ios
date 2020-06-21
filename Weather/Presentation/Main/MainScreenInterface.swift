@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import UIKit
 
 protocol MainScreenViewInput {
     func configureView()
+    func configureFirstTabWith(headerView: UIViewController, listView: UIViewController)
+    func configureSecondTabWith(headerView: UIViewController, listView: UIViewController)
 }
 
 protocol MainScreenViewOutput {
@@ -17,5 +20,11 @@ protocol MainScreenViewOutput {
 }
 
 protocol MainScreenModuleOutput {
-    func didPressedSwitchScreen()
+    func didLoadFirstCity(weather: Weather, cityName: String)
+    func didLoadSecondCity(weather: Weather, cityName: String)
+}
+
+protocol MainScreenModuleInput {
+    func configureFirstScreenWith(headerView: UIViewController, listView: UIViewController)
+    func configureSecondScreenWith(headerView: UIViewController, listView: UIViewController)
 }

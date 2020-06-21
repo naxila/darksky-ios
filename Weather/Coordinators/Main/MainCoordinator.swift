@@ -14,6 +14,7 @@ class MainCoordinator {
     //MARK: - Properties
     private var output: MainCoordinatorOutput?
     private var router: MainCoordinatorRouterInterface?
+    private var mainModuleInput: MainScreenModuleInput?
     
     
     //MARK: - Incapsulation
@@ -42,7 +43,7 @@ extension MainCoordinator: CoordinatorInterface {
     
     func start() {
         self.configureNavigationController()
-        self.router?.openMainScreenWith(output: self)
+        self.mainModuleInput = self.router?.openMainScreenWith(output: self)
     }
     
     func navigationController() -> UINavigationController? {
@@ -56,8 +57,21 @@ extension MainCoordinator: CoordinatorInterface {
 
 extension MainCoordinator: MainScreenModuleOutput {
     
-    func didPressedSwitchScreen() {
-        //
+    func didLoadFirstCity(weather: Weather, cityName: String) {
+        let headerView = WeatherHeaderAssembly.buildWith(output: self, weather: weather, cityName: cityName)
+        self.mainModuleInput?.configureFirstScreenWith(headerView: headerView, listView: headerView)
     }
     
+    func didLoadSecondCity(weather: Weather, cityName: String) {
+        let headerView = WeatherHeaderAssembly.buildWith(output: self, weather: weather, cityName: cityName)
+        self.mainModuleInput?.configureSecondScreenWith(headerView: headerView, listView: headerView)
+    }
+    
+}
+
+
+//MARK: - WeatherHeader
+
+extension MainCoordinator: WeatherHeaderModuleOutput {
+    //
 }

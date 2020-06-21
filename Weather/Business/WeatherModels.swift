@@ -13,8 +13,10 @@ struct Weather: Codable {
     let currently: Currently
     let hourly: Hourly
     let daily: Daily
+    let latitude, longitude: Double
 
     struct Currently: Codable {
+        let time: TimeInterval
         let summary: String
         let temperature: Double
         let icon: String

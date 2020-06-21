@@ -1,6 +1,6 @@
 //
 //  AppDelegate.swift
-//  Wheather
+//  Weather
 //
 //  Created by Алихан on 18/06/2020.
 //  Copyright © 2020 Nexen Origin, LLC. All rights reserved.
@@ -15,7 +15,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        /// Starting main coordinator
+        // Starting main coordinator
         let coordinator = Coordinator()
         coordinator.start()
         

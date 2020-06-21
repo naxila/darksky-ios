@@ -13,5 +13,5 @@ protocol MainCoordinatorOutput: CoordinatorInterface {
 }
 
 protocol MainCoordinatorRouterInterface {
-    func openMainScreenWith(output: MainScreenModuleOutput)
+    func openMainScreenWith(output: MainScreenModuleOutput) -> MainScreenModuleInput?
 }

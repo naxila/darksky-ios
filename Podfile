@@ -7,7 +7,7 @@ target 'Weather' do
 
   # Pods for Weather
   pod 'Alamofire'
-  pod 'Realm'
+  pod 'lottie-ios'
   pod 'GoogleMaps'
 
 end

@@ -13,11 +13,13 @@ class WeatherService {
     //MARK: - Properties
     let client = RequestService()
     
+    //MARK: - Paths
+    let forecastPath = "forecast"
+    
     //MARK: - Constants
     let apiKey = (Bundle.main.object(forInfoDictionaryKey: String.Bundle.apiKey) as? String) ?? String.empty
-    let forecastPath = "forecast"
-    let stPetersburgPoint = GeoPoint(latitude: 59.93863, longitude: 30.31413)
-    let moscowPoint = GeoPoint(latitude: 39.9075, longitude: 116.3972)
+    let stPetersburgPoint = GeoPoint(latitude: 59.938630, longitude: 30.314130)
+    let moscowPoint = GeoPoint(latitude: 39.907500, longitude: 116.397200)
     
     
     //MARK: - Service
@@ -25,6 +27,14 @@ class WeatherService {
     func forecastFor(geoPoint: GeoPoint, success: @escaping ((_ weather: Weather) -> Void), failure: @escaping ((_ errorMessage: String) -> Void)) {
         
         let path = "\(forecastPath)/\(apiKey)/\(geoPoint.latitude),\(geoPoint.longitude)"
+        
+        if let storedWeather = self.storedWeatherFor(path: path) {
+            let currentTimeInterval = Date().timeIntervalSince1970
+            if currentTimeInterval - storedWeather.currently.time < 3600 {
+                success(storedWeather)
+                return
+            }
+        }
         
         self.client.get(path: path, parameters: nil, success: { (response) in
             if let response = response {
@@ -41,10 +51,22 @@ class WeatherService {
                     return
                 }
                 
+                Storage.set(object: result, forKey: path)
                 success(result)
+            } else {
+                if let storedWeather = self.storedWeatherFor(path: path) {
+                    success(storedWeather)
+                }
+                
+                failure(String.Network.Errors.undefined)
             }
             
         }) { (statusCode, errorMessage) in
+            
+            if let storedWeather = self.storedWeatherFor(path: path) {
+                success(storedWeather)
+            }
+            
             failure(errorMessage ?? String.Network.Errors.undefined)
         }
     }
@@ -57,4 +79,14 @@ class WeatherService {
         self.forecastFor(geoPoint: self.moscowPoint, success: success, failure: failure)
     }
     
+    
+    //MARK: - Storage
+    
+    private func storedWeatherFor(path: String) -> Weather? {
+        return Storage.objectForKey(key: path, type: Weather.self)
+    }
+    
+    private func store(weather: Weather, for path: String) {
+        Storage.set(object: weather, forKey: path)
+    }
 }

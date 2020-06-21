@@ -7,11 +7,28 @@
 //
 
 import UIKit
+import Lottie
 
 class MainViewController: UIViewController {
 
     //MARK: - Properties
     private var output: MainScreenViewOutput?
+    private var isHeaderExpanded = false
+    
+    //MARK: - Constants
+    private let headerCollapsedHeight: CGFloat = 180
+    
+    //MARK: - Outlets
+    @IBOutlet weak var headerView: UIView!
+    @IBOutlet weak var firstTabHeaderView: UIView!
+    @IBOutlet weak var secondTabHeaderView: UIView!
+    @IBOutlet weak var headerPullView: UIView!
+    @IBOutlet weak var citiesSegmentedControl: UISegmentedControl!
+    @IBOutlet weak var mapButton: UIButton!
+    @IBOutlet weak var firstTabListView: UIView!
+    @IBOutlet weak var secondTabListView: UIView!
+    @IBOutlet weak var headerViewHeightConstraint: NSLayoutConstraint!
+    
     
     
     //MARK: - Incapsulation
@@ -25,25 +42,123 @@ class MainViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
-        let service = WeatherService()
+        self.output?.didTriggerViewReadyEvent()
+    }
+    
+    
+    //MARK: - Actions
+    
+    @IBAction func mapButtonAction(_ sender: Any) {
+        //
+    }
+    
+    @IBAction func didChangeTab(_ sender: Any) {
+        self.showTabAt(index: self.citiesSegmentedControl.selectedSegmentIndex)
+    }
+    
+    //MARK: - Private
+    
+    private func setupInitialState() {
+        let contentViews = [self.firstTabHeaderView, self.secondTabHeaderView, self.firstTabListView, self.secondTabListView]
         
-        service.forecasForMoscow(success: { (weather) in
-            print(weather)
-        }) { (errorMessage) in
-            print(errorMessage)
+        for contentView in contentViews {
+            let path = Bundle.main.path(forResource: "loader", ofType: "json") ?? String.empty
+            let animation = AnimationView(filePath: path)
+            animation.frame = CGRect(x: (contentView?.center.x ?? 0) - 50, y: ((contentView?.bounds.size.height ?? 0) / 2) - 50, width: 100, height: 100)
+            contentView?.addSubview(animation)
+            animation.loopMode = .loop
+            animation.play()
         }
     }
-
+    
+    private func stopFirstTabAnimations() {
+        let contentViews = [self.firstTabHeaderView, self.secondTabHeaderView]
+        for contentView in contentViews {
+            for subview in contentView?.subviews ?? [] {
+                subview.removeFromSuperview()
+            }
+        }
+    }
+    
+    private func stopSecondTabAnimations() {
+            let contentViews = [self.firstTabListView, self.secondTabListView]
+            for contentView in contentViews {
+                for subview in contentView?.subviews ?? [] {
+                    subview.removeFromSuperview()
+                }
+            }
+        }
+    
+    private func showTabAt(index: Int) {
+        
+        self.firstTabHeaderView.isHidden = index == 1
+        self.secondTabHeaderView.isHidden = index == 0
+        self.firstTabListView.isHidden = index == 1
+        self.secondTabListView.isHidden = index == 0
+        
+    }
+    
+    private func updateHeader() {
+        self.view.bringSubviewToFront(self.headerView)
+        let height = !self.isHeaderExpanded ? self.view.frame.size.height - 100 : self.headerCollapsedHeight
+        
+        UIView.animate(withDuration: 0.3) {
+            self.headerViewHeightConstraint.constant = height
+            self.view.layoutSubviews()
+            self.headerView.layoutSubviews()
+        }
+        
+    }
+    
+    
+    //MARK: - Objc
+    
+    @objc func handleGesture(gesture: UISwipeGestureRecognizer) -> Void {
+        if gesture.direction == .up {
+            if self.isHeaderExpanded {
+                self.updateHeader()
+                self.isHeaderExpanded.toggle()
+            }
+        } else if gesture.direction == .down {
+            if !self.isHeaderExpanded {
+                self.updateHeader()
+                self.isHeaderExpanded.toggle()
+            }
+        }
+    }
+    
 }
 
 
 //MARK: - ViewInput
 
 extension MainViewController: MainScreenViewInput {
+    func configureFirstTabWith(headerView: UIViewController, listView: UIViewController) {
+        self.stopFirstTabAnimations()
+        self.addChild(headerView)
+        self.firstTabHeaderView.addSubview(headerView.view)
+        headerView.didMove(toParent: self)
+    }
+    
+    func configureSecondTabWith(headerView: UIViewController, listView: UIViewController) {
+        self.stopSecondTabAnimations()
+        self.addChild(headerView)
+        self.secondTabHeaderView.addSubview(headerView.view)
+        headerView.didMove(toParent: self)
+    }
     
     func configureView() {
-        //
+        self.setupInitialState()
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeUp.direction = .up
+        self.headerPullView.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        self.headerPullView.addGestureRecognizer(swipeDown)
+        
+        self.headerView.clipsToBounds = true
     }
     
 }

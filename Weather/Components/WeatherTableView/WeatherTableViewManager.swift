@@ -1,5 +1,5 @@
 //
-//  WeatherHeaderTableViewManager.swift
+//  WeatherTableViewManager.swift
 //  Weather
 //
 //  Created by Алихан on 21/06/2020.
@@ -9,21 +9,22 @@
 import Foundation
 import UIKit
 
-class WeatherHeaderTableViewManager: NSObject {
+class WeatherTableViewManager: NSObject {
     
     //MARK: Properties
     private var tableView: UITableView?
-    private var cellObjects: [UITableViewCell]?
+    private var cellObjects: [TableViewCellObject]?
     
     //MARK: - Incapsulation
     
     func set(tableView: UITableView) {
         self.tableView = tableView
+        self.tableView?.register(UITableViewCell.nibFor(reuseIdentifier: UITableViewCell.ReuseIdentifier.Weather.item), forCellReuseIdentifier: UITableViewCell.ReuseIdentifier.Weather.item)
     }
     
     //MARK: Functions
     
-    func updateWith(cellObjects: [UITableViewCell]) {
+    func updateWith(cellObjects: [TableViewCellObject]) {
         self.cellObjects = cellObjects
         self.tableView?.reloadData()
     }
@@ -37,7 +38,7 @@ class WeatherHeaderTableViewManager: NSObject {
 
 //MARK: UITableViewDataSource
 
-extension WeatherHeaderTableViewManager: UITableViewDataSource {
+extension WeatherTableViewManager: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return self.cellObjects?.count ?? 0
@@ -49,11 +50,11 @@ extension WeatherHeaderTableViewManager: UITableViewDataSource {
             return UITableViewCell()
         }
         
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "", for: indexPath) as? UITableViewCell else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: UITableViewCell.ReuseIdentifier.Weather.item, for: indexPath) as? WeatherTableViewCell else {
             return UITableViewCell()
         }
         
-//        cell.configureWith(cellObject: cellObject)
+        cell.configureWith(cellObject: cellObject)
         return cell
     }
     
@@ -62,29 +63,10 @@ extension WeatherHeaderTableViewManager: UITableViewDataSource {
 
 //MARK: UITableViewDelegate
 
-extension WeatherHeaderTableViewManager: UITableViewDelegate {
+extension WeatherTableViewManager: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-//        return self.cellObjects?[indexPath.row].height() ?? 0
-        return 0
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        var newCellObjects = self.cellObjects
-        
-        for i in 0..<(newCellObjects?.count ?? 0) {
-            if let _ = newCellObjects?[i] {
-                newCellObjects![i].isSelected = false
-            }
-        }
-        
-        if let _ = newCellObjects?[indexPath.row] {
-            newCellObjects![indexPath.row].isSelected = true
-        }
-        
-        self.cellObjects = newCellObjects
-        self.tableView?.reloadData()
+        return self.cellObjects?[indexPath.row].height() ?? 0
     }
     
 }

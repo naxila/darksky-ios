@@ -9,7 +9,7 @@
 import Foundation
 
 protocol WeatherHeaderViewInput {
-    func configureViewWith(weather: Weather, cityName: String)
+    func configureViewWith(tableViewManager: WeatherTableViewManager, weather: Weather, cityName: String)
 }
 
 protocol WeatherHeaderViewOutput {

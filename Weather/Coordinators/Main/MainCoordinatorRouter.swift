@@ -28,9 +28,14 @@ class MainCoordinatorRouter {
 
 extension MainCoordinatorRouter: MainCoordinatorRouterInterface {
     
+    func openMapScreen(output: MapCoordinatorOutput) {
+        let mapCoordinator = MapCoordinatorAssembly.buildWith(output: output)
+        mapCoordinator.start()
+    }
+    
     func openMainScreenWith(output: MainScreenModuleOutput) -> MainScreenModuleInput? {
         
-        let mainModule: (view: UIViewController?, input: MainScreenModuleInput?) = MainScreenAssebly.buildWith(output: output)
+        let mainModule: (view: UIViewController?, input: MainScreenModuleInput?) = MainScreenAssembly.buildWith(output: output)
         
         if let mainScreen = mainModule.view {
             self.navigationController?.pushViewController(mainScreen, animated: true)

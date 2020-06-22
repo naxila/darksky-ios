@@ -19,6 +19,7 @@ extension String {
     enum Bundle {
         static let baseUrl = "BASE_URL"
         static let apiKey = "API_KEY"
+        static let GMSAPIKey = "GMS_API_KEY"
     }
     
     enum Network {

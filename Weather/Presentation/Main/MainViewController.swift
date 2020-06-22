@@ -49,7 +49,7 @@ class MainViewController: UIViewController {
     //MARK: - Actions
     
     @IBAction func mapButtonAction(_ sender: Any) {
-        //
+        self.output?.didPressedMapButton()
     }
     
     @IBAction func didChangeTab(_ sender: Any) {
@@ -71,23 +71,11 @@ class MainViewController: UIViewController {
         }
     }
     
-    private func stopFirstTabAnimations() {
-        let contentViews = [self.firstTabHeaderView, self.secondTabHeaderView]
-        for contentView in contentViews {
-            for subview in contentView?.subviews ?? [] {
-                subview.removeFromSuperview()
-            }
+    private func clear(view: UIView) {
+        for subview in view.subviews {
+           subview.removeFromSuperview()
         }
     }
-    
-    private func stopSecondTabAnimations() {
-            let contentViews = [self.firstTabListView, self.secondTabListView]
-            for contentView in contentViews {
-                for subview in contentView?.subviews ?? [] {
-                    subview.removeFromSuperview()
-                }
-            }
-        }
     
     private func showTabAt(index: Int) {
         
@@ -95,12 +83,12 @@ class MainViewController: UIViewController {
         self.secondTabHeaderView.isHidden = index == 0
         self.firstTabListView.isHidden = index == 1
         self.secondTabListView.isHidden = index == 0
-        
+
     }
     
     private func updateHeader() {
         self.view.bringSubviewToFront(self.headerView)
-        let height = !self.isHeaderExpanded ? self.view.frame.size.height - 100 : self.headerCollapsedHeight
+        let height = !self.isHeaderExpanded ? self.headerCollapsedHeight + 330 : self.headerCollapsedHeight
         
         UIView.animate(withDuration: 0.3) {
             self.headerViewHeightConstraint.constant = height
@@ -110,6 +98,24 @@ class MainViewController: UIViewController {
         
     }
     
+    private func load(childViewController: UIViewController, to containerView: UIView) {
+        self.clear(view: containerView)
+        self.addChild(childViewController)
+        containerView.addSubview(childViewController.view)
+        childViewController.didMove(toParent: self)
+    }
+    
+    private func configureGestures() {
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeUp.direction = .up
+        self.headerPullView.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
+        swipeDown.direction = .down
+        self.headerPullView.addGestureRecognizer(swipeDown)
+        
+        self.headerView.clipsToBounds = true
+    }
     
     //MARK: - Objc
     
@@ -134,31 +140,18 @@ class MainViewController: UIViewController {
 
 extension MainViewController: MainScreenViewInput {
     func configureFirstTabWith(headerView: UIViewController, listView: UIViewController) {
-        self.stopFirstTabAnimations()
-        self.addChild(headerView)
-        self.firstTabHeaderView.addSubview(headerView.view)
-        headerView.didMove(toParent: self)
+        self.load(childViewController: headerView, to: self.firstTabHeaderView)
+        self.load(childViewController: listView, to: self.firstTabListView)
     }
     
     func configureSecondTabWith(headerView: UIViewController, listView: UIViewController) {
-        self.stopSecondTabAnimations()
-        self.addChild(headerView)
-        self.secondTabHeaderView.addSubview(headerView.view)
-        headerView.didMove(toParent: self)
+        self.load(childViewController: headerView, to: self.secondTabHeaderView)
+        self.load(childViewController: listView, to: self.secondTabListView)
     }
     
     func configureView() {
         self.setupInitialState()
-        
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
-        swipeUp.direction = .up
-        self.headerPullView.addGestureRecognizer(swipeUp)
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(self.handleGesture(gesture:)))
-        swipeDown.direction = .down
-        self.headerPullView.addGestureRecognizer(swipeDown)
-        
-        self.headerView.clipsToBounds = true
+        self.configureGestures()
     }
     
 }

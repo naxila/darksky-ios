@@ -38,9 +38,15 @@ class WeatherViewController: UIViewController {
 //MARK: - WeatherViewController
 
 extension WeatherViewController: WeatherHeaderViewInput {
-    func configureViewWith(weather: Weather, cityName: String) {
+    func configureViewWith(tableViewManager: WeatherTableViewManager, weather: Weather, cityName: String) {
+        
         self.cityNameLabel.text = cityName
         self.temperatureLabel.text = String(format: "%0.f °C, %@", (weather.currently.temperature - 32) * 5/9, weather.currently.summary)
         self.iconImageView.image = UIImage(named: weather.currently.icon)
+        
+        tableViewManager.set(tableView: self.hourlyTableView)
+        self.hourlyTableView.delegate = tableViewManager
+        self.hourlyTableView.dataSource = tableViewManager
+        
     }
 }

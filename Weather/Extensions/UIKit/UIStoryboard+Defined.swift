@@ -13,6 +13,16 @@ import UIKit
 
 enum StoryboardName {
     static let main = "Main"
+    static let map = "Map"
+}
+
+enum NibNames {
+    
+    enum Views {
+        static let weatherHeader = "WeatherHeaderView"
+        static let dailyList = "DailyListView"
+    }
+    
 }
 
 extension UIStoryboard {

@@ -52,7 +52,7 @@
                                 </constraints>
                             </view>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="nexen origin demo app" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bQU-jN-V7w">
-                                <rect key="frame" x="125.5" y="842" width="163" height="20"/>
+                                <rect key="frame" x="125.5" y="822" width="163" height="20"/>
                                 <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                 <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -61,7 +61,7 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="K3o-e7-25y" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="1kv-er-oIf"/>
-                            <constraint firstItem="bQU-jN-V7w" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="AVu-Ov-iGn"/>
+                            <constraint firstItem="bQU-jN-V7w" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-20" id="AVu-Ov-iGn"/>
                             <constraint firstItem="K3o-e7-25y" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Au8-53-Lv4"/>
                             <constraint firstItem="bQU-jN-V7w" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Ywj-jt-czn"/>
                         </constraints>

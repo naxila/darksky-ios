@@ -13,6 +13,8 @@ class WeatherHeaderPresenter {
     
     //MARK: - Properties
     private var view: WeatherHeaderViewInput?
+    private var tableViewManager = WeatherTableViewManager()
+    private var cellObjectsFactory = WeatherCellObjectsFactory()
     private var weather: Weather?
     private let service = WeatherService()
     private var cityName: String?
@@ -31,6 +33,10 @@ class WeatherHeaderPresenter {
     func set(cityName: String) {
         self.cityName = cityName
     }
+    
+    func set(tableViewManager: WeatherTableViewManager) {
+        self.tableViewManager = tableViewManager
+    }
 }
 
 //MARK: - WeatherHeaderPresenter
@@ -38,7 +44,8 @@ class WeatherHeaderPresenter {
 extension WeatherHeaderPresenter: WeatherHeaderViewOutput {
     func didTriggerViewReadyEvent() {
         if let weather = self.weather {
-            self.view?.configureViewWith(weather: weather, cityName: self.cityName ?? String.empty)
+            self.view?.configureViewWith(tableViewManager: self.tableViewManager, weather: weather, cityName: self.cityName ?? String.empty)
+            self.tableViewManager.updateWith(cellObjects: self.cellObjectsFactory.buildHourlyCellObjectsWith(weather: weather, style: .light))
         }
     }
 }

@@ -59,12 +59,19 @@ extension MainCoordinator: MainScreenModuleOutput {
     
     func didLoadFirstCity(weather: Weather, cityName: String) {
         let headerView = WeatherHeaderAssembly.buildWith(output: self, weather: weather, cityName: cityName)
-        self.mainModuleInput?.configureFirstScreenWith(headerView: headerView, listView: headerView)
+        let listView = DailyListAssembly.buildListWith(weather: weather)
+        
+        self.mainModuleInput?.configureFirstScreenWith(headerView: headerView, listView: listView)
     }
     
     func didLoadSecondCity(weather: Weather, cityName: String) {
         let headerView = WeatherHeaderAssembly.buildWith(output: self, weather: weather, cityName: cityName)
-        self.mainModuleInput?.configureSecondScreenWith(headerView: headerView, listView: headerView)
+         let listView = DailyListAssembly.buildListWith(weather: weather)
+        self.mainModuleInput?.configureSecondScreenWith(headerView: headerView, listView: listView)
+    }
+    
+    func didPressedMapButton() {
+        self.router?.openMapScreen(output: self)
     }
     
 }
@@ -74,4 +81,15 @@ extension MainCoordinator: MainScreenModuleOutput {
 
 extension MainCoordinator: WeatherHeaderModuleOutput {
     //
+}
+
+
+//MARK: - MapModuleOutput
+
+extension MainCoordinator: MapCoordinatorOutput {
+    
+    func didFinishMapCoordinator() {
+        self.navigationController()?.popViewController(animated: true)
+    }
+    
 }

@@ -52,11 +52,17 @@ class MainScreenPresenter {
 //MARK: - ViewOutput
 
 extension MainScreenPresenter: MainScreenViewOutput {
+    
     func didTriggerViewReadyEvent() {
         self.view?.configureView()
         self.loadStPetersBurg()
         self.loadMoscow()
     }
+    
+    func didPressedMapButton() {
+        self.output?.didPressedMapButton()
+    }
+    
 }
 
 //MARK: - ModuleInput

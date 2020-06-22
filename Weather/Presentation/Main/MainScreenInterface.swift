@@ -17,11 +17,13 @@ protocol MainScreenViewInput {
 
 protocol MainScreenViewOutput {
     func didTriggerViewReadyEvent()
+    func didPressedMapButton()
 }
 
 protocol MainScreenModuleOutput {
     func didLoadFirstCity(weather: Weather, cityName: String)
     func didLoadSecondCity(weather: Weather, cityName: String)
+    func didPressedMapButton()
 }
 
 protocol MainScreenModuleInput {

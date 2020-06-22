@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-class MainScreenAssebly {
+class MainScreenAssembly {
     
     static func buildWith(output: MainScreenModuleOutput) -> (view: UIViewController?, input: MainScreenModuleInput?) {
         

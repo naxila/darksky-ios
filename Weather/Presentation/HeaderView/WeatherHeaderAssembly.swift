@@ -14,7 +14,7 @@ class WeatherHeaderAssembly {
     static func buildWith(output: WeatherHeaderModuleOutput, weather: Weather, cityName: String) -> UIViewController {
         
         // Creating components
-        let viewController = WeatherViewController(nibName: "WeatherHeaderView", bundle: nil)
+        let viewController = WeatherViewController(nibName: NibNames.Views.weatherHeader, bundle: nil)
         let presenter = WeatherHeaderPresenter()
         
         // Injecting properties

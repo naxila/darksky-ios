@@ -49,7 +49,7 @@ extension WeatherTableViewCell: BaseTableViewCell {
             self.iconImageView.image = UIImage(named: weatherCellObject.icon)
             self.setupAppearenceWith(style: weatherCellObject.style)
             self.summaryLabel.text = String(format: "%0.f °C, %@", (weatherCellObject.temperature - 32) * 5/9, weatherCellObject.summary)
-            self.timeLabel.text = Date(timeIntervalSince1970: weatherCellObject.time).description
+            self.timeLabel.text = weatherCellObject.time
         }
     }
 }

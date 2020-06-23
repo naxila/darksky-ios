@@ -88,7 +88,7 @@ class MainViewController: UIViewController {
     
     private func updateHeader() {
         self.view.bringSubviewToFront(self.headerView)
-        let height = !self.isHeaderExpanded ? self.headerCollapsedHeight + 330 : self.headerCollapsedHeight
+        let height = !self.isHeaderExpanded ? self.headerCollapsedHeight + 320 : self.headerCollapsedHeight
         
         UIView.animate(withDuration: 0.3) {
             self.headerViewHeightConstraint.constant = height

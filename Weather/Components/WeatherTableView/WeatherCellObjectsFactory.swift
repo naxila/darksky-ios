@@ -14,7 +14,7 @@ class WeatherCellObjectsFactory {
         var cellObjects: [TableViewCellObject] = []
         
         for hour in weather.hourly.data {
-            cellObjects.append(WeatherCellObject(icon: hour.icon, temperature: hour.temperature, time: hour.time, summary: hour.summary, style: style))
+            cellObjects.append(WeatherCellObject(icon: hour.icon, temperature: hour.temperature, time: hour.time.dateToStringWithTime(), summary: hour.summary, style: style))
         }
         
         return cellObjects
@@ -24,7 +24,7 @@ class WeatherCellObjectsFactory {
         var cellObjects: [TableViewCellObject] = []
         
         for day in weather.daily.data {
-            cellObjects.append(WeatherCellObject(icon: day.icon, temperature: day.temperatureHigh, time: day.time, summary: day.summary, style: style))
+            cellObjects.append(WeatherCellObject(icon: day.icon, temperature: day.temperatureHigh, time: day.time.dateToStringWithTimeAndDate(), summary: day.summary, style: style))
         }
         
         return cellObjects

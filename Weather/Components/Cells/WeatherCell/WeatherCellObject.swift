@@ -14,7 +14,7 @@ struct WeatherCellObject {
     //MARK: - Properties
     let icon: String
     let temperature: Double
-    let time: TimeInterval
+    let time: String
     let summary: String
     let style: Style
     

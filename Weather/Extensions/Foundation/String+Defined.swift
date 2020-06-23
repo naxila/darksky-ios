@@ -33,4 +33,9 @@ extension String {
         static let today = "Today"
     }
     
+    enum DateFormat {
+        static let timeAndDateWithoutYear = "HH:mm d MMM"
+        static let time = "HH:mm"
+    }
+    
 }

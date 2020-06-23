@@ -28,7 +28,7 @@ struct Weather: Codable {
         let data: [Hour]
         
         struct Hour: Codable {
-            let time: TimeInterval
+            let time: Date
             let summary: String
             let icon: String
             let temperature: Double
@@ -39,7 +39,7 @@ struct Weather: Codable {
         let data: [Day]
         
         struct Day: Codable {
-            let time: TimeInterval
+            let time: Date
             let summary: String
             let icon: String
             let temperatureHigh, temperatureLow: Double

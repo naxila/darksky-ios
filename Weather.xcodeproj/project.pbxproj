@@ -40,6 +40,7 @@
 		842BEA69249E2CFC006033D8 /* DailyListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BEA68249E2CFC006033D8 /* DailyListViewController.swift */; };
 		842BEA6D249E2D4E006033D8 /* WeatherHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 842BEA6C249E2D4E006033D8 /* WeatherHeaderViewController.swift */; };
 		842BEA6F249E2D69006033D8 /* WeatherHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 842BEA6E249E2D69006033D8 /* WeatherHeaderView.xib */; };
+		8434638024A1FDD400195206 /* Date+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8434637F24A1FDD400195206 /* Date+Helpers.swift */; };
 		8461907024A0FD430064E61D /* WeatherCellObjectsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8461906F24A0FD430064E61D /* WeatherCellObjectsFactory.swift */; };
 		846CC95324A0FFA000598A13 /* DailyListAssembly.swift in Sources */ = {isa = PBXBuildFile; fileRef = 846CC95224A0FFA000598A13 /* DailyListAssembly.swift */; };
 		846CC95524A1002A00598A13 /* DailyListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 846CC95424A1002A00598A13 /* DailyListView.xib */; };
@@ -96,6 +97,7 @@
 		842BEA68249E2CFC006033D8 /* DailyListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyListViewController.swift; sourceTree = "<group>"; };
 		842BEA6C249E2D4E006033D8 /* WeatherHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherHeaderViewController.swift; sourceTree = "<group>"; };
 		842BEA6E249E2D69006033D8 /* WeatherHeaderView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WeatherHeaderView.xib; sourceTree = "<group>"; };
+		8434637F24A1FDD400195206 /* Date+Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Helpers.swift"; sourceTree = "<group>"; };
 		8461906F24A0FD430064E61D /* WeatherCellObjectsFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = WeatherCellObjectsFactory.swift; sourceTree = "<group>"; };
 		846CC95224A0FFA000598A13 /* DailyListAssembly.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DailyListAssembly.swift; sourceTree = "<group>"; };
 		846CC95424A1002A00598A13 /* DailyListView.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DailyListView.xib; sourceTree = "<group>"; };
@@ -351,6 +353,7 @@
 		842BEA51249CE2DA006033D8 /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				8434637F24A1FDD400195206 /* Date+Helpers.swift */,
 				842BEA52249CE2F2006033D8 /* String+Defined.swift */,
 			);
 			path = Foundation;
@@ -595,6 +598,7 @@
 				846CC96024A1120F00598A13 /* MapAssembly.swift in Sources */,
 				846CC95A24A1059300598A13 /* MapViewController.swift in Sources */,
 				846CC96A24A165C900598A13 /* MapCoordinatorInterface.swift in Sources */,
+				8434638024A1FDD400195206 /* Date+Helpers.swift in Sources */,
 				842BEA1B249B7A0B006033D8 /* AppDelegate.swift in Sources */,
 				846CC95324A0FFA000598A13 /* DailyListAssembly.swift in Sources */,
 				842BEA66249D744C006033D8 /* UIStoryboard+Defined.swift in Sources */,
